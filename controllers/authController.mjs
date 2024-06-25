@@ -53,6 +53,13 @@ export const login = async (req, res) => {
   createSendToken(user, 200, res);
 };
 
+export const getProfile = (req, res) => {
+  res.json({
+    success: true,
+    user: req.user
+  });
+};
+
 export const forgotPassword = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
