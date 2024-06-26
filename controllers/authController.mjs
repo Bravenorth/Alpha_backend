@@ -90,6 +90,29 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
+export const updateMe = async (req, res) => {
+  try {
+    const updates = req.body;
+    const user = await User.findByIdAndUpdate(req.user.id, updates, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 export const resetPassword = async (req, res) => {
   const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
   const user = await User.findOne({

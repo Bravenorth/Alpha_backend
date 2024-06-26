@@ -11,7 +11,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
   },
+  name: {
+    type: String,
+    default: '',
+  },
+  avatar: {
+    type: String,
+    default: '',
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
 });
+
 
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
