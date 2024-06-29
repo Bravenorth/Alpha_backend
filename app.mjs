@@ -5,6 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import authRoutes from './routes/authRoutes.mjs';
+import scrappingEntriesRoutes from './routes/scrappingEntriesRoutes.mjs'; // Import des routes de scrapping
 import errorHandler from './middlewares/errorHandler.mjs';
 
 dotenv.config();
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('DB connection error:', err));
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1', scrappingEntriesRoutes); // Utilisation des routes de scrapping
 
 app.use(errorHandler);
 
